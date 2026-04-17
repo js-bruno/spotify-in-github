@@ -1,38 +1,33 @@
 package main
 
 import (
+	"context"
+	"crypto/sha256"
+	"encoding/base64"
 	"fmt"
-	"os"
+	"log"
 
-	"github.com/joho/godotenv"
+	"github.com/js-bruno/spotify-in-github/internal/services"
+	"github.com/js-bruno/spotify-in-github/internal/util"
 )
 
 func main() {
-	env := loadEnv()
+	ctx := context.Background()
+	env := util.LoadEnv()
 
-	fmt.Println(env)
-}
+	text, err := util.GenerateRandomString(100)
+	hash := sha256.Sum256([]byte(text))
+	bhash := hash[:]
+	base64.RawURLEncoding.EncodeToString(bhash)
 
-func loadEnv() Env {
-	env := os.Getenv("ENVIRONMENT")
-	if "" == env {
-		env = "development"
+	response, err := services.GetClientCredentials(ctx, env.SpotifyClientId, env.SpotifyClientSecret)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	godotenv.Load(".env." + env + ".local")
-	if "test" != env {
-		godotenv.Load(".env.local")
+	current, err := services.GetCurrentlyPlaying(ctx, response.AcessToken)
+	if err != nil {
+		log.Fatal(err)
 	}
-	godotenv.Load(".env." + env)
-	godotenv.Load()
-
-	return Env{
-		Enviroment:    os.Getenv("ENVIROMENT"),
-		SpotifyApiKey: os.Getenv("SPOTIFY_API_KEY"),
-	}
-}
-
-type Env struct {
-	Enviroment    string
-	SpotifyApiKey string
+	fmt.Println(current)
 }
