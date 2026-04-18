@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -11,6 +12,7 @@ import (
 
 	"log"
 
+	"github.com/js-bruno/spotify-in-github/internal/services"
 	"github.com/js-bruno/spotify-in-github/internal/util"
 )
 
@@ -78,21 +80,28 @@ func basicAuth() string {
 }
 
 func HandlePlayer(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
 	token, err := getAccessToken()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
+	response, err := services.GetCurrentlyPlaying(ctx, token)
+	if err != nil {
+		log.Println(err)
+	}
 
-	req, _ := http.NewRequest("GET", "https://api.spotify.com/v1/me/player", nil)
-	req.Header.Add("Authorization", "Bearer "+token)
+	if len(response) == 0 {
+		response = map[string]any{"status": "no-content"}
+	}
 
-	client := &http.Client{}
-	resp, _ := client.Do(req)
-	body, _ := io.ReadAll(resp.Body)
+	b, err := json.Marshal(response)
+	if err != nil {
+		log.Println(err)
+	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(body)
+	w.Write(b)
 }
 
 func getAccessToken() (string, error) {

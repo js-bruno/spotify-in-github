@@ -20,14 +20,28 @@ func main() {
 	bhash := hash[:]
 	base64.RawURLEncoding.EncodeToString(bhash)
 
-	response, err := services.GetClientCredentials(ctx, env.SpotifyClientId, env.SpotifyClientSecret)
+	// TODO: DONT NEED FOR NOW I THINK
+	// response, err := services.GetClientCredentials(ctx, env.SpotifyClientId, env.SpotifyClientSecret)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	accessToken, err := services.GetAccessToken(ctx, env.SpotifyClientId, env.SpotifyClientSecret, env.SpotifyRefreshToken)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	current, err := services.GetCurrentlyPlaying(ctx, response.AcessToken)
+	current, err := services.GetCurrentlyPlaying(ctx, accessToken)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(current)
+
+	IsPlaying := current["is_playing"]
+	deviceName := current["device"].(map[string]any)["type"]
+	songName := current["item"].(map[string]any)["name"]
+
+	fmt.Println(IsPlaying)
+	fmt.Println(deviceName)
+	fmt.Println(songName)
+
 }
