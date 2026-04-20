@@ -59,7 +59,7 @@ func main() {
 		fmt.Println(artistName)
 
 		websiteLayout := fmt.Sprintf("by %s", artistName)
-		locationLayout := fmt.Sprintf("i’m listening to 『%s』 on Spotify", songName)
+		locationLayout := fmt.Sprintf("🌴 i’m listening to 『%s』 on Spotify 🌴", songName)
 
 		services.UpdateUserCompanyLocationWebsite(ctx, env.GithubTokenUser, locationLayout, websiteLayout, songURL)
 		time.Sleep(30 * time.Second)
