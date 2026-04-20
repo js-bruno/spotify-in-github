@@ -15,9 +15,9 @@ func UpdateUserCompanyLocationWebsite(ctx context.Context, githubToken, location
 	// 	"company": "Backend developer"
 	// }`)
 	data := map[string]string{
-		"blog":             website,
-		"location":         location,
-		"twitter_username": twitterUser,
+		"blog":     website,
+		"location": location,
+		// "twitter_username": twitterUser,
 	}
 
 	jsonData, _ := json.Marshal(data)
@@ -34,7 +34,7 @@ func UpdateUserCompanyLocationWebsite(ctx context.Context, githubToken, location
 
 	if resp.StatusCode == http.StatusOK {
 		return nil
-
 	}
+
 	return errors.New("Update Fails: " + resp.Status)
 }
