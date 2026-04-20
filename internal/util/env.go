@@ -24,7 +24,7 @@ func LoadEnv() Env {
 		SpotifyClientId:     os.Getenv("SPOTIFY_CLIENT_ID"),
 		SpotifyClientSecret: os.Getenv("SPOTIFY_CLIENT_SECRET"),
 		SpotifyRefreshToken: os.Getenv("SPOTIFY_REFRESH_TOKEN"),
-		GithubToken:         os.Getenv("GITHUB_TOKEN"),
+		GithubTokenUser:     os.Getenv("GITHUB_API_TOKEN_USER"),
 		CallbackPort:        os.Getenv("CALLBACK_PORT"),
 	}
 }
@@ -34,6 +34,6 @@ type Env struct {
 	SpotifyClientId     string
 	SpotifyClientSecret string
 	SpotifyRefreshToken string
-	GithubToken         string
+	GithubTokenUser     string
 	CallbackPort        string
 }

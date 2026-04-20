@@ -38,10 +38,23 @@ func main() {
 
 	IsPlaying := current["is_playing"]
 	deviceName := current["device"].(map[string]any)["type"]
-	songName := current["item"].(map[string]any)["name"]
+	songName := fmt.Sprint(current["item"].(map[string]any)["name"])
+	songURL := current["item"].(map[string]any)["external_urls"].(map[string]any)["spotify"].(string)
+	songArtists := current["item"].(map[string]any)["artists"].([]any)[0].(map[string]any)
 
+	// websiteLayout := "by 𝑻𝒂𝒎𝒆 𝑰𝒎𝒑𝒂𝒍𝒂"
+	// locationLayout := "i’m listening to 『𝑳𝒐𝒔𝒆𝒓』 on Spotify "
+	songName = util.ConvertToFont(songName)
+	artistName := util.ConvertToFont(songArtists["name"].(string))
+
+	fmt.Println(songName)
 	fmt.Println(IsPlaying)
 	fmt.Println(deviceName)
-	fmt.Println(songName)
+	fmt.Println(songURL)
+	fmt.Println(artistName)
 
+	websiteLayout := fmt.Sprintf("by %s", artistName)
+	locationLayout := fmt.Sprintf("i’m listening to 『%s』 on Spotify", songName)
+
+	services.UpdateUserCompanyLocationWebsite(ctx, env.GithubTokenUser, locationLayout, websiteLayout, songURL)
 }
