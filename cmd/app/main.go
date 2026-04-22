@@ -24,12 +24,6 @@ func main() {
 	bhash := hash[:]
 	base64.RawURLEncoding.EncodeToString(bhash)
 
-	// TODO: DONT NEED FOR NOW I THINK
-	// response, err := services.GetClientCredentials(ctx, env.SpotifyClientId, env.SpotifyClientSecret)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	for {
 		accessToken, err := services.GetAccessToken(ctx, env.SpotifyClientId, env.SpotifyClientSecret, env.SpotifyRefreshToken)
 		if err != nil {
@@ -38,7 +32,9 @@ func main() {
 
 		current, err := services.GetCurrentlyPlaying(ctx, accessToken)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("Any sound found in player: ", err.Error())
+			time.Sleep(30 * time.Second)
+			continue
 		}
 
 		IsPlaying := current["is_playing"]
