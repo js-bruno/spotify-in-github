@@ -9,17 +9,7 @@ import (
 )
 
 func LoadEnv() Env {
-	env := os.Getenv("ENVIRONMENT")
-	if "" == env {
-		env = "development"
-	}
-
-	godotenv.Load(".env." + env + ".local")
-	if "test" != env {
-		godotenv.Load(".env.local")
-	}
-	godotenv.Load(".env." + env)
-	godotenv.Load()
+	godotenv.Load(".env.local")
 
 	appDelaySeconds := os.Getenv("APP_DELAY_SECONDS")
 	appDelaySecondsInt, err := strconv.Atoi(appDelaySeconds)
