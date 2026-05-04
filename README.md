@@ -112,6 +112,5 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
 ---
-
-<p align="center">Made with 💊 and 🎵</p>
 ![a](md-gifs/vine4.gif)
+<p align="center">Made with 💊 and 🎵</p>
