@@ -3,6 +3,4 @@ callback-server:
 
 
 build:
-	@go build cmd/app/main.go
-	@mv ./.env.local ~/.
-	@mv ./main ~/.
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o spotify-in-github cmd/app/main.go
