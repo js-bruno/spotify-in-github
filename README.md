@@ -1,3 +1,4 @@
+![a](md-gifs/vine4.gif)
 # spotify-github-status
 
 > Automatically updates your GitHub profile with the song currently playing on Spotify.
@@ -113,3 +114,4 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information
 ---
 
 <p align="center">Made with 💊 and 🎵</p>
+![a](md-gifs/vine4.gif)
