@@ -9,7 +9,7 @@
 
 ---
 
-## ✨ How it works
+##  how it works
 
 The project polls the Spotify API at regular intervals and, whenever it detects a song playing, updates your GitHub profile with the track name and artist — all running automatically in the background.
 
@@ -110,7 +110,3 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 ## license
 
 Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
-
----
-![a](md-gifs/vine4.gif)
-<p align="center">Made with 💊 and 🎵</p>
